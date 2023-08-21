@@ -35,6 +35,12 @@
       ],
       "@app/email/*": [
         "libs/email/src/*"
+      ],
+      "@app/decorators": [
+        "libs/decorators/src"
+      ],
+      "@app/decorators/*": [
+        "libs/decorators/src/*"
       ]
     }
   }

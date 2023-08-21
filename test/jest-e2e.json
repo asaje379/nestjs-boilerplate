@@ -16,6 +16,8 @@
     "@app/shared/(.*)": "<rootDir>/../libs/shared/src/$1",
     "@app/shared": "<rootDir>/../libs/shared/src",
     "@app/email/(.*)": "<rootDir>/../libs/email/src/$1",
-    "@app/email": "<rootDir>/../libs/email/src"
+    "@app/email": "<rootDir>/../libs/email/src",
+    "@app/decorators/(.*)": "<rootDir>/../libs/decorators/src/$1",
+    "@app/decorators": "<rootDir>/../libs/decorators/src"
   }
 }

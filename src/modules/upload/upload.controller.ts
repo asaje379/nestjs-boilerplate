@@ -11,9 +11,9 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterFile, UploadService } from './upload.service';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { CurrentHost } from 'src/decorators/current-host.decorator';
 import { join } from 'path';
 import { Response } from 'express';
+import { CurrentHost } from '@app/decorators';
 
 @Controller('file')
 @ApiTags('File upload')

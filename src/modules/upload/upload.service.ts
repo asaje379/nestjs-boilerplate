@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { writeFile } from 'fs/promises';
 import { extname } from 'path';
 import { nanoid } from 'nanoid';
-import { HandleError } from 'src/decorators/handle-error.decorator';
+import { HandleError } from '@app/decorators';
 
 export type MulterFile = Express.Multer.File;
 

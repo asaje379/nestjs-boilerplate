@@ -1,4 +1,4 @@
-import { ExecutionRequest } from './../utils/typings';
+import { ExecutionRequest } from '@app/shared';
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
 export const CurrentHost = createParamDecorator((_, ctx: ExecutionContext) => {
