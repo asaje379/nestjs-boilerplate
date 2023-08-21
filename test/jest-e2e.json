@@ -14,6 +14,8 @@
     "@app/prisma/(.*)": "<rootDir>/../libs/prisma/src/$1",
     "@app/prisma": "<rootDir>/../libs/prisma/src",
     "@app/shared/(.*)": "<rootDir>/../libs/shared/src/$1",
-    "@app/shared": "<rootDir>/../libs/shared/src"
+    "@app/shared": "<rootDir>/../libs/shared/src",
+    "@app/email/(.*)": "<rootDir>/../libs/email/src/$1",
+    "@app/email": "<rootDir>/../libs/email/src"
   }
 }
