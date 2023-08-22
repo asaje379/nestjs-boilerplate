@@ -1,12 +1,13 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Delete, Get, Query, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { EmailService } from '@app/email';
 import { initPushEventSubscription } from '@asaje/sse-push-event-server';
 import { Response } from 'express';
+import { BasicRoles, SecureController } from '@app/decorators';
+import { BasicRole } from '@prisma/client';
 
-@Controller()
-@ApiTags('Health Check')
+@SecureController('', 'Default')
 export class AppController {
   constructor(
     private readonly appService: AppService,
@@ -35,5 +36,11 @@ export class AppController {
       template: 'test',
       data: { name: 'Salem' },
     });
+  }
+
+  @Delete('remove-old-http-logs')
+  @BasicRoles(BasicRole.ADMIN)
+  async removeOldHttpLogs(@Query('limit') limit: string) {
+    return await this.appService.removeOldHttpLogs(limit);
   }
 }

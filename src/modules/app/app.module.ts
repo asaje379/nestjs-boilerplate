@@ -10,11 +10,20 @@ import { AuthModule } from '../auth/auth.module';
 import { UploadModule } from '../upload/upload.module';
 import { EmailModule } from '@app/email';
 import { AuthMiddleware } from 'src/middlewares/auth.middleware';
+import { PrismaModule } from '@app/prisma';
+import { APP_GUARD } from '@nestjs/core';
+import { RoleGuard } from 'src/guards/role.guard';
 
 @Module({
-  imports: [AuthModule, UploadModule, EmailModule],
+  imports: [AuthModule, UploadModule, EmailModule, PrismaModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -109,7 +109,7 @@ export class AuthService extends PrismaGenericRepository<
       },
     });
 
-    return { auth: { ...auth, password: undefined }, url };
+    return { credentials: { ...auth, password: undefined }, url };
   }
 
   @HandleError()
