@@ -15,7 +15,7 @@ import {
 import { AuthService } from './auth.service';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { AuthViews } from './auth.constants';
-import { CurrentHost } from '@app/decorators';
+import { BasicRoles, CurrentHost, SecureController } from '@app/decorators';
 import {
   BasicAuthCredentials,
   BasicAuthId,
@@ -25,9 +25,8 @@ import {
 import { AuthAction } from './auth.enum';
 import { AuthEntity } from './auth.entity';
 import { Pagination } from '@app/shared/types/pagination';
-import { SecureController } from '@app/decorators/secure-controller.decorator';
 import { CurrentAuth } from '@app/decorators/current-auth.decorator';
-import { Auth } from '@prisma/client';
+import { Auth, BasicRole } from '@prisma/client';
 
 @SecureController('auth', 'Authentication')
 export class AuthController {
@@ -85,6 +84,7 @@ export class AuthController {
   }
 
   @Get()
+  @BasicRoles(BasicRole.ADMIN)
   async findAll(@Query() args: Pagination) {
     const auths = await this.authService.findAndCount({ paginationArgs: args });
     return {
@@ -116,21 +116,25 @@ export class AuthController {
   }
 
   @Delete(':id')
+  @BasicRoles(BasicRole.ADMIN)
   async archiveOne(@Param('id') id: string) {
     return await this.authService.archive(id);
   }
 
   @Delete(':id/force')
+  @BasicRoles(BasicRole.ADMIN)
   async deleteOne(@Param('id') id: string) {
     return await this.authService.delete(id);
   }
 
   @Delete(':id/many')
+  @BasicRoles(BasicRole.ADMIN)
   async archiveMany(@Body() ids: string[]) {
     return await this.authService.archiveMany(ids);
   }
 
   @Delete(':id/many/force')
+  @BasicRoles(BasicRole.ADMIN)
   async deleteMany(@Body() ids: string[]) {
     return await this.authService.deleteMany(ids);
   }

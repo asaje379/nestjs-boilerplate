@@ -9,7 +9,7 @@ import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { UploadModule } from '../upload/upload.module';
 import { EmailModule } from '@app/email';
-import { AuthMiddleware } from 'src/middlewares/auth/auth.middleware';
+import { AuthMiddleware } from 'src/middlewares/auth.middleware';
 
 @Module({
   imports: [AuthModule, UploadModule, EmailModule],

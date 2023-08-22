@@ -40,4 +40,20 @@ model Auth {
 
   isVerified Boolean   @default(false)
   role       BasicRole
+  httpLogs   HttpLog[]
+}
+
+model HttpLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  action String
+  url    String
+  method String
+  query  Json?
+  params Json?
+  body   Json?
+
+  author   Auth   @relation(fields: [authorId], references: [id])
+  authorId String
 }

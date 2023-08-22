@@ -12,8 +12,7 @@ import { MulterFile, UploadService } from './upload.service';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { join } from 'path';
 import { Response } from 'express';
-import { CurrentHost } from '@app/decorators';
-import { SecureController } from '@app/decorators/secure-controller.decorator';
+import { CurrentHost, SecureController } from '@app/decorators';
 
 @SecureController('file', 'File upload')
 export class UploadController {
