@@ -1,7 +1,6 @@
 import {
   Body,
   ClassSerializerInterceptor,
-  Controller,
   Delete,
   Get,
   NotFoundException,
@@ -14,7 +13,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { AuthViews } from './auth.constants';
 import { CurrentHost } from '@app/decorators';
 import {
@@ -26,9 +25,11 @@ import {
 import { AuthAction } from './auth.enum';
 import { AuthEntity } from './auth.entity';
 import { Pagination } from '@app/shared/types/pagination';
+import { SecureController } from '@app/decorators/secure-controller.decorator';
+import { CurrentAuth } from '@app/decorators/current-auth.decorator';
+import { Auth } from '@prisma/client';
 
-@Controller('auth')
-@ApiTags('Authentication')
+@SecureController('auth', 'Authentication')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -40,6 +41,7 @@ export class AuthController {
       host,
       auth,
       AuthAction.DEFINE_PASSWORD,
+      'define-your-password',
     );
   }
 
@@ -78,6 +80,7 @@ export class AuthController {
       host,
       auth,
       AuthAction.RESET_PASSWORD,
+      'reset-your-password',
     );
   }
 
@@ -88,6 +91,11 @@ export class AuthController {
       ...auths,
       values: auths.values.map((auth) => ({ ...auth, password: undefined })),
     };
+  }
+
+  @Get('me')
+  async whoAmI(@CurrentAuth() auth: Partial<Auth>) {
+    return auth;
   }
 
   @Get(':id')

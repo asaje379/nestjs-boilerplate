@@ -6,7 +6,7 @@ import { Auth, Prisma } from '@prisma/client';
 import { AuthAction, AuthErrorStatus } from './auth.enum';
 import { HandleError } from '@app/decorators';
 import { compare, hash } from 'bcrypt';
-import { sign } from '@asaje/token-generator';
+import { sign, verify } from '@asaje/token-generator';
 import { Env } from '@app/shared';
 import {
   BasicAuthCredentials,
@@ -91,13 +91,18 @@ export class AuthService extends PrismaGenericRepository<
     };
   }
 
-  async generateAndSendUrl(host: string, auth: Auth, action: AuthAction) {
+  async generateAndSendUrl(
+    host: string,
+    auth: Auth,
+    action: AuthAction,
+    template: string,
+  ) {
     const url = `${host}/auth/${AuthViews.definePassword}/${auth.id}`;
 
     await this.email.sendEmail({
       subject: AuthMessages[action],
       to: auth.email,
-      template: 'define-your-password',
+      template,
       data: {
         username: auth.username ? auth.username : auth.email.split('@')[0],
         url,
@@ -105,5 +110,13 @@ export class AuthService extends PrismaGenericRepository<
     });
 
     return { auth: { ...auth, password: undefined }, url };
+  }
+
+  @HandleError()
+  async whoAmI(token: string) {
+    const { id } = verify<{ id: string }>({ key: Env.auth.tokenSecret, token });
+    const auth = await this.getById(id);
+    delete auth.password;
+    return auth;
   }
 }

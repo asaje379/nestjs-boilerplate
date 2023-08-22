@@ -13,6 +13,7 @@ async function bootstrap() {
   app.setViewEngine('hbs');
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle(Env.openApi.title)
     .setDescription(Env.openApi.description)
     .setVersion(Env.openApi.version)

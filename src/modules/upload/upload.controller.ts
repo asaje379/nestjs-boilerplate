@@ -1,5 +1,4 @@
 import {
-  Controller,
   Get,
   Param,
   Post,
@@ -10,13 +9,13 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterFile, UploadService } from './upload.service';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { join } from 'path';
 import { Response } from 'express';
 import { CurrentHost } from '@app/decorators';
+import { SecureController } from '@app/decorators/secure-controller.decorator';
 
-@Controller('file')
-@ApiTags('File upload')
+@SecureController('file', 'File upload')
 export class UploadController {
   constructor(private uploadService: UploadService) {}
 
