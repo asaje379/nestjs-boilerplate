@@ -10,18 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Auth {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  enabled   Boolean  @default(true)
-
-  email    String  @unique
-  password String?
-
-  isVerified Boolean @default(false)
-}
-
 model File {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -33,4 +21,23 @@ model File {
   views        Int    @default(0)
   downloaded   Int    @default(0)
   path         String
+}
+
+enum BasicRole {
+  USER
+  ADMIN
+}
+
+model Auth {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enabled   Boolean  @default(true)
+
+  username String? @unique
+  email    String  @unique
+  password String?
+
+  isVerified Boolean   @default(false)
+  role       BasicRole
 }

@@ -1,7 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { EmailService } from '@app/email';
+import { initPushEventSubscription } from '@asaje/sse-push-event-server';
+import { Response } from 'express';
 
 @Controller()
 @ApiTags('Health Check')
@@ -10,6 +12,15 @@ export class AppController {
     private readonly appService: AppService,
     private readonly emailService: EmailService,
   ) {}
+
+  @Get('events')
+  @ApiExcludeEndpoint()
+  events(@Res() response: Response) {
+    const { value, destroy } = initPushEventSubscription();
+    response.on('close', () => destroy());
+
+    return value;
+  }
 
   @Get('healthy')
   getHello(): string {

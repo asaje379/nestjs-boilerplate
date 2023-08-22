@@ -2,9 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { Env } from '@app/shared';
 import { AppModule } from './modules/app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'dist/templates/views'));
+  app.setViewEngine('hbs');
 
   const config = new DocumentBuilder()
     .setTitle(Env.openApi.title)

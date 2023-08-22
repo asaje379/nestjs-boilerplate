@@ -22,7 +22,9 @@ export class EmailService {
     return await transport.sendMail({
       from: data.from ?? Env.email.user,
       to: data.to,
-      html: data.content ?? (await parseEmailTemplate('test', data.data ?? {})),
+      html:
+        data.content ??
+        (await parseEmailTemplate(data.template, data.data ?? {})),
       subject: data.subject ?? '',
       ...(data.cc ? { cc: data.cc } : {}),
       ...(data.attachments ? { attachments: data.attachments } : {}),

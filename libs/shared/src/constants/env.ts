@@ -17,4 +17,8 @@ export const Env = {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  auth: {
+    tokenSecret: process.env.AUTH_TOKEN_SECRET,
+    tokenExpiration: +process.env.AUTH_TOKEN_EXPIRATION,
+  },
 };

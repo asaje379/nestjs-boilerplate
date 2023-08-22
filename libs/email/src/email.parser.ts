@@ -4,7 +4,7 @@ import { twig } from 'twig';
 
 async function getTemplateFileContent(name: string) {
   const filePath = resolve(__dirname, 'templates/emails');
-  const fileName = join(filePath, `${name}.html.twig`);
+  const fileName = join(filePath, `${name}.html`);
   const content = await readFile(fileName, 'utf-8');
   return twig({ data: content });
 }

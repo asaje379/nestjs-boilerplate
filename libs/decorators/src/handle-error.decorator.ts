@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import * as chalk from 'chalk';
 
 export const HandleError = function () {
@@ -14,7 +15,7 @@ export const HandleError = function () {
             } - ${new Date().toLocaleString()} ${error.message}`,
           ),
         );
-        return null;
+        throw new InternalServerErrorException(error.message);
       }
     };
   };
