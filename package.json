@@ -21,7 +21,8 @@
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
     "migrate:prod": "prisma migrate deploy",
-    "doc:generate": "compodoc -p tsconfig.json -s"
+    "doc:generate": "compodoc -p tsconfig.json -s",
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@asaje/prisma-generic-repository": "^0.0.3",
