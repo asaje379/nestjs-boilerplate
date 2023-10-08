@@ -1,4 +1,4 @@
-import { Delete, Get, Query, Res } from '@nestjs/common';
+import { Delete, Get, Query, Res, Sse } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { EmailService } from '@app/email';
@@ -14,7 +14,7 @@ export class AppController {
     private readonly emailService: EmailService,
   ) {}
 
-  @Get('events')
+  @Sse('events')
   @ApiExcludeEndpoint()
   events(@Res() response: Response) {
     const { value, destroy } = initPushEventSubscription();
