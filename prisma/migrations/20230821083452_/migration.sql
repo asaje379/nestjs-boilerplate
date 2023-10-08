@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "File" ALTER COLUMN "views" SET DEFAULT 0,
-ALTER COLUMN "downloaded" SET DEFAULT 0;

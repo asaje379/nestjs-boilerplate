@@ -1,8 +1,8 @@
 {
   "name": "nestjs-prisma-boilerplate",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Nestjs boilerplate with prisma, openapi and authentication support",
+  "author": "Salem AFFA",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
-    "migrate:prod": "prisma migrate deploy"
+    "migrate:prod": "prisma migrate deploy",
+    "doc:generate": "compodoc -p tsconfig.json -s"
   },
   "dependencies": {
     "@asaje/prisma-generic-repository": "^0.0.3",
@@ -43,6 +44,7 @@
     "twig": "^1.16.0"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.21",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
