@@ -18,6 +18,8 @@
     "@app/email/(.*)": "<rootDir>/../libs/email/src/$1",
     "@app/email": "<rootDir>/../libs/email/src",
     "@app/decorators/(.*)": "<rootDir>/../libs/decorators/src/$1",
-    "@app/decorators": "<rootDir>/../libs/decorators/src"
+    "@app/decorators": "<rootDir>/../libs/decorators/src",
+    "@app/base-controller/(.*)": "<rootDir>/../libs/base-controller/src/$1",
+    "@app/base-controller": "<rootDir>/../libs/base-controller/src"
   }
 }

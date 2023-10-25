@@ -41,6 +41,12 @@
       ],
       "@app/decorators/*": [
         "libs/decorators/src/*"
+      ],
+      "@app/base-controller": [
+        "libs/base-controller/src"
+      ],
+      "@app/base-controller/*": [
+        "libs/base-controller/src/*"
       ]
     }
   }

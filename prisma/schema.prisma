@@ -58,3 +58,13 @@ model HttpLog {
   author   Auth?   @relation(fields: [authorId], references: [id])
   authorId String?
 }
+
+model Todo {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enabled   Boolean  @default(true)
+
+  label     String
+  completed Boolean
+}

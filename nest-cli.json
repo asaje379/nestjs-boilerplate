@@ -46,6 +46,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/decorators/tsconfig.lib.json"
       }
+    },
+    "base-controller": {
+      "type": "library",
+      "root": "libs/base-controller",
+      "entryFile": "index",
+      "sourceRoot": "libs/base-controller/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/base-controller/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ export const routesToExclude: (string | RouteInfo)[] = [
   { path: '/healthy', method: RequestMethod.GET },
   { path: '/test-email', method: RequestMethod.GET },
   { path: '/auth/login', method: RequestMethod.POST },
+  { path: '/auth/register', method: RequestMethod.POST },
   { path: '/auth/reset-password', method: RequestMethod.POST },
   { path: '/auth/set-password', method: RequestMethod.POST },
   { path: '/auth/define-password/(.*)', method: RequestMethod.GET },

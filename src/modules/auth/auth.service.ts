@@ -3,7 +3,7 @@ import { PrismaGenericRepository } from '@asaje/prisma-generic-repository';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Auth, Prisma } from '@prisma/client';
 
-import { AuthAction, AuthErrorStatus } from './auth.enum';
+import { AuthErrorStatus } from './auth.enum';
 import { HandleError } from '@app/decorators';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from '@asaje/token-generator';
@@ -15,6 +15,8 @@ import {
 } from './auth.dto';
 import { AuthMessages, AuthViews } from './auth.constants';
 import { EmailService } from '@app/email';
+import { GenerateAndSendUrlArgs } from './auth.typings';
+import { joinToUrl } from '@app/shared/helpers';
 
 @Injectable()
 export class AuthService extends PrismaGenericRepository<
@@ -91,13 +93,16 @@ export class AuthService extends PrismaGenericRepository<
     };
   }
 
-  async generateAndSendUrl(
-    host: string,
-    auth: Auth,
-    action: AuthAction,
-    template: string,
-  ) {
-    const url = `${host}/auth/${AuthViews.definePassword}/${auth.id}`;
+  async generateAndSendUrl({
+    host,
+    auth,
+    action,
+    template,
+    callbackUrl,
+  }: GenerateAndSendUrlArgs) {
+    const url = callbackUrl
+      ? `${joinToUrl(callbackUrl, auth.id)}`
+      : `${host}/auth/${AuthViews.definePassword}/${auth.id}`;
 
     await this.email.sendEmail({
       subject: AuthMessages[action],

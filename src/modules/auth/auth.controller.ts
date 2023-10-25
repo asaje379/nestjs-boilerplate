@@ -13,7 +13,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiHeader } from '@nestjs/swagger';
 import { AuthViews } from './auth.constants';
 import {
   ActionName,
@@ -26,12 +26,14 @@ import {
   BasicAuthId,
   BasicAuthRegister,
   BasicAuthSetPassword,
+  CallbackUrlHeader,
 } from './auth.dto';
 import { AuthAction, AuthEmailTemplates } from './auth.enum';
 import { AuthEntity } from './auth.entity';
 import { Pagination } from '@app/shared/types/pagination';
 import { CurrentAuth } from '@app/decorators/current-auth.decorator';
 import { Auth, BasicRole } from '@prisma/client';
+import { CallbackUrl } from '@app/decorators/callback-url.decorator';
 
 @SecureController('auth', 'Authentication')
 export class AuthController {
@@ -39,15 +41,23 @@ export class AuthController {
 
   @Post('register')
   @ActionName('User sign in')
-  async register(@Body() data: BasicAuthRegister, @CurrentHost() host: string) {
+  @ApiHeader({ name: 'x-callback-url' })
+  async register(
+    @Body() data: BasicAuthRegister,
+    @CurrentHost() host: string,
+    @CallbackUrl() { callbackUrl }: CallbackUrlHeader,
+  ) {
+    console.log(callbackUrl, 'callbackUrl');
+
     const auth = await this.authService.register(data);
 
-    return await this.authService.generateAndSendUrl(
+    return await this.authService.generateAndSendUrl({
       host,
       auth,
-      AuthAction.DEFINE_PASSWORD,
-      AuthEmailTemplates.DEFINE_YOUR_PASSWORD,
-    );
+      action: AuthAction.DEFINE_PASSWORD,
+      template: AuthEmailTemplates.DEFINE_YOUR_PASSWORD,
+      callbackUrl,
+    });
   }
 
   @ApiExcludeEndpoint()
@@ -76,20 +86,23 @@ export class AuthController {
 
   @Post(AuthViews.resetPassword)
   @ActionName('User request for password update')
+  @ApiHeader({ name: 'x-callback-url' })
   async resetPassword(
     @Body() { email, username }: BasicAuthId,
     @CurrentHost() host: string,
+    @CallbackUrl() { callbackUrl }: CallbackUrlHeader,
   ) {
     const auth = await this.authService.get({ OR: [{ email, username }] });
     if (!auth)
       throw new NotFoundException('Unable to reset password, user not found');
 
-    return this.authService.generateAndSendUrl(
+    return this.authService.generateAndSendUrl({
       host,
       auth,
-      AuthAction.RESET_PASSWORD,
-      AuthEmailTemplates.RESET_YOUR_PASSWORD,
-    );
+      action: AuthAction.RESET_PASSWORD,
+      template: AuthEmailTemplates.RESET_YOUR_PASSWORD,
+      callbackUrl,
+    });
   }
 
   @Get()

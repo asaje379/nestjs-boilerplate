@@ -36,6 +36,7 @@
     "bcrypt": "^5.1.1",
     "chalk": "4",
     "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
     "hbs": "^4.2.0",
     "nanoid": "3",
@@ -97,7 +98,8 @@
       "^@app/prisma(|/.*)$": "<rootDir>/libs/prisma/src/$1",
       "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1",
       "^@app/email(|/.*)$": "<rootDir>/libs/email/src/$1",
-      "^@app/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1"
+      "^@app/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
+      "^@app/base-controller(|/.*)$": "<rootDir>/libs/base-controller/src/$1"
     }
   }
 }

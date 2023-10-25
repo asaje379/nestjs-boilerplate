@@ -1,8 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
@@ -13,9 +9,10 @@ import { PrismaModule } from '@app/prisma';
 import { APP_GUARD } from '@nestjs/core';
 import { RoleGuard } from 'src/guards/role.guard';
 import { routesToExclude } from './app.route-exclude';
+import { TodoModule } from '../todo/todo.module';
 
 @Module({
-  imports: [AuthModule, UploadModule, EmailModule, PrismaModule],
+  imports: [AuthModule, UploadModule, EmailModule, PrismaModule, TodoModule],
   controllers: [AppController],
   providers: [
     AppService,
