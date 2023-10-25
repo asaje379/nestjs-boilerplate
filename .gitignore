@@ -38,4 +38,4 @@ lerna-debug.log*
 
 uploads
 documentation
-# prisma/migrations
+prisma/migrations
