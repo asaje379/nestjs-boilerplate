@@ -21,4 +21,7 @@ export const Env = {
     tokenSecret: process.env.AUTH_TOKEN_SECRET,
     tokenExpiration: +process.env.AUTH_TOKEN_EXPIRATION,
   },
+  security: {
+    requestSizeLimit: process.env.SECURITY_REQUEST_SIZE_LIMIT,
+  },
 };

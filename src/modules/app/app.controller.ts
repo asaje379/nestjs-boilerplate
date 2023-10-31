@@ -6,6 +6,7 @@ import { initPushEventSubscription } from '@asaje/sse-push-event-server';
 import { Response } from 'express';
 import { BasicRoles, SecureController } from '@app/decorators';
 import { BasicRole } from '@prisma/client';
+import { RequestSizeLimit } from '@app/decorators/request-limit-size.decorator';
 
 @SecureController('', 'Default')
 export class AppController {
@@ -25,6 +26,12 @@ export class AppController {
 
   @Get('healthy')
   getHello(): string {
+    return this.appService.getHello();
+  }
+
+  @Get('test-request-size-limit')
+  @RequestSizeLimit('0.1 kb')
+  testRequestSizeLimit(): string {
     return this.appService.getHello();
   }
 
