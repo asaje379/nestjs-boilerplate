@@ -51,8 +51,8 @@ export class AuthService extends PrismaGenericRepository<
 
   @HandleError()
   async register({ email, username, role }: BasicAuthRegister) {
-    this.handleEmailAlreadyExists(email);
-    this.handleUsernameAlreadyExists(username);
+    await this.handleEmailAlreadyExists(email);
+    await this.handleUsernameAlreadyExists(username);
 
     return await this.create({
       email,
