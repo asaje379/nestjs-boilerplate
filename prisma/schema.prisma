@@ -47,6 +47,10 @@ model HttpLog {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
+  start    DateTime
+  end      DateTime
+  duration String
+
   ip     String
   action String
   url    String

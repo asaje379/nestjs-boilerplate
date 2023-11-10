@@ -10,6 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { RoleGuard } from 'src/guards/role.guard';
 import { routesToExclude } from './app.route-exclude';
 import { TodoModule } from '../todo/todo.module';
+import { TooBusyMiddleware } from 'src/middlewares/too-busy.middleware';
 
 @Module({
   imports: [AuthModule, UploadModule, EmailModule, PrismaModule, TodoModule],
@@ -25,7 +26,7 @@ import { TodoModule } from '../todo/todo.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(AuthMiddleware)
+      .apply(TooBusyMiddleware, AuthMiddleware)
       .exclude(...routesToExclude)
       .forRoutes('*');
   }

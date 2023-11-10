@@ -44,7 +44,9 @@
     "nodemailer": "^6.9.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "twig": "^1.16.0"
+    "toobusy-js": "^0.5.1",
+    "twig": "^1.16.0",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.21",
@@ -58,6 +60,7 @@
     "@types/node": "18.11.18",
     "@types/nodemailer": "^6.4.9",
     "@types/supertest": "^2.0.11",
+    "@types/toobusy-js": "^0.5.4",
     "@types/twig": "^1.12.9",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -100,7 +103,8 @@
       "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1",
       "^@app/email(|/.*)$": "<rootDir>/libs/email/src/$1",
       "^@app/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
-      "^@app/base-controller(|/.*)$": "<rootDir>/libs/base-controller/src/$1"
+      "^@app/base-controller(|/.*)$": "<rootDir>/libs/base-controller/src/$1",
+      "^@app/logger(|/.*)$": "<rootDir>/libs/logger/src/$1"
     }
   }
 }

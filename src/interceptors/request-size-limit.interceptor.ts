@@ -23,13 +23,6 @@ export class RequestLimitSizeInterceptor implements NestInterceptor {
       Env.security.requestSizeLimit;
     const bytes = countBytes(limit);
 
-    console.log(
-      bytes,
-      limit,
-      req.socket.bytesRead,
-      req.socket.bytesRead > bytes,
-    );
-
     if (req.socket.bytesRead <= bytes) return next.handle();
 
     throw new PayloadTooLargeException('Request size is too large');

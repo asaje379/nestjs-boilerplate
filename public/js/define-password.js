@@ -5,7 +5,6 @@ const submitButton = document.getElementById('__dp_submit');
 const form = document.getElementById('__dp_form');
 
 const [id] = location.href.split('/').reverse();
-console.log(id);
 
 submitButton.disabled = true;
 
@@ -29,8 +28,6 @@ form.addEventListener('submit', async (e) => {
     id,
     password: passwordInput.value,
   });
-
-  console.log(result);
 
   if (result.data) {
     alert('Mot de passe défini avec succès');

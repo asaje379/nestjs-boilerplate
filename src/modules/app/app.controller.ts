@@ -45,6 +45,13 @@ export class AppController {
     });
   }
 
+  @Get('toobusy-test')
+  async testTooBusy() {
+    let i = 0;
+    while (i < 1e5) i++;
+    return i;
+  }
+
   @Delete('remove-old-http-logs')
   @BasicRoles(BasicRole.ADMIN)
   async removeOldHttpLogs(@Query('limit') limit: string) {

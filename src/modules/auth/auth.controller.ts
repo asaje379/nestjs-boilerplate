@@ -47,8 +47,6 @@ export class AuthController {
     @CurrentHost() host: string,
     @CallbackUrl() { callbackUrl }: CallbackUrlHeader,
   ) {
-    console.log(callbackUrl, 'callbackUrl');
-
     const auth = await this.authService.register(data);
 
     return await this.authService.generateAndSendUrl({

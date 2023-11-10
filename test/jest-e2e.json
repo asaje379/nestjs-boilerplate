@@ -20,6 +20,8 @@
     "@app/decorators/(.*)": "<rootDir>/../libs/decorators/src/$1",
     "@app/decorators": "<rootDir>/../libs/decorators/src",
     "@app/base-controller/(.*)": "<rootDir>/../libs/base-controller/src/$1",
-    "@app/base-controller": "<rootDir>/../libs/base-controller/src"
+    "@app/base-controller": "<rootDir>/../libs/base-controller/src",
+    "@app/logger/(.*)": "<rootDir>/../libs/logger/src/$1",
+    "@app/logger": "<rootDir>/../libs/logger/src"
   }
 }
